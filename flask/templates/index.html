@@ -1,24 +1,21 @@
 {% extends 'all.html' %}
 
-{% block title %}mama ebal{% endblock %}
+{% block title %}Главная{% endblock %}
 
-{% block name %}Маму ебал{% endblock %}
+{% block name %}Каталог{% endblock %}
  
 {% block body %}
 <main>
     
     <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
         {% for el in data %}
-        <div class="col">
-            <form method="POST">
+        <div class="col" id="{{ el.id }}">
         <div class="card mb-4 rounded-3 shadow-sm">
           <div class="card-header py-3">
             <h4 class="my-0 fw-normal">{{ el.title }}</h4>
-            <input type="hidden" name="title" value="${{ el.title }}">
           </div>
           <div class="card-body">
-            <h1 class="card-title pricing-card-title">${{ el.price }}<small class="text-muted fw-light">/mo</small></h1>
-            <input type="hidden" name="price" value="${{ el.price }}">
+            <h1 class="card-title pricing-card-title">${{ el.price }}</h1>
             <ul class="list-unstyled mt-3 mb-4">
               <li>10 users included</li>
               <li>2 GB of storage</li>
@@ -28,8 +25,25 @@
             <button type="submit" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
           </div>
         </div>
-    </form>
       </div>
+      <script>
+        btn=document.getElementsByClassName('btn-lg')[0];
+        btn.onclick=()=>{
+          const id=document.getElementById('{{ el.id }}')[0];
+          const price=document.getElementsByClassName('pricing-card-title')[0].innerHTML;
+          const title=document.getElementsByClassName('my-0 fw-normal')[0].innerHTML;
+          const cart_data={}
+          cart_data.id=id;
+          cart_data.price=price;
+          cart_data.title=title;
+          console.log(cart_data)
+          fetch('/cart',{
+            method: 'POST',
+            headers: {'Content-type':'application/json'},
+            body: cart_data
+          });
+        };
+      </script>
         {% endfor %}
     <h2 class="display-6 text-center mb-4">Compare plans</h2>
 

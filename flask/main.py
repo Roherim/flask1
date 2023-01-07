@@ -15,21 +15,24 @@ class Item(db.Model):
 def index():
     item=Item.query.order_by(Item.price).all()
     return render_template('index.html', data=item)
-    if 'cart' not in session:
-        session['cart'] = []
+    #if 'cart' not in session:
+    #    session['cart'] = []
     if request.method=='POST':
-        session['cart'] += [{
-            'title':request.form['title'],
-            'price':request.form['price'],
-            'cout':1,
-        }]
-        cart=session['cart'](title=title, price=price) 
+        #session['cart'] += [{
+            #'title':request.form['title'],
+            #'price':request.form['price'],
+            #'cout':1,
+       # }]
+        #cart=session['cart'](title=title, price=price) 
+        return request
 @app.route('/about')
 def about():
     return render_template('about.html')
-@app.route('/cart')
+@app.route('/cart', methods=['POST', 'GET'])
 def cart():
-    return render_template('cart.html', cart=session['cart'])
+    if request.method=='POST':
+        return request
+    return render_template('cart.html')
 @app.route('/create', methods=['POST', 'GET'])
 def create():
     if request.method=='POST':
