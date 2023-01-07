@@ -1,0 +1,11 @@
+{% extends 'all.html' %}
+
+{% block title %}КРИЕЙТ{% endblock %}
+
+{% block name %}<form method="POST">
+    <input type="text" class="form-control" name="title" placeholder="название"><br>
+    <input type="text" class="form-control" name="price" placeholder="цена"><br>
+    <input type="text" class="form-control" name="discription" placeholder="описание"><br>
+    <input type="text" class="form-control" name="image" placeholder="изображение (url)"><br>
+    <button class="btn btn-success" type="submit">Добавить</button><br>
+</form>{% endblock %}
