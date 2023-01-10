@@ -29,18 +29,16 @@
       <script>
         btn=document.getElementsByClassName('btn-lg')[0];
         btn.onclick=()=>{
-          const id=document.getElementById('{{ el.id }}')[0];
           const price=document.getElementsByClassName('pricing-card-title')[0].innerHTML;
           const title=document.getElementsByClassName('my-0 fw-normal')[0].innerHTML;
           const cart_data={}
-          cart_data.id=id;
           cart_data.price=price;
           cart_data.title=title;
-          console.log(cart_data)
+          console.log(JSON.stringify(cart_data))
           fetch('/cart',{
             method: 'POST',
             headers: {'Content-type':'application/json'},
-            body: cart_data
+            body: JSON.stringify(cart_data)
           });
         };
       </script>
